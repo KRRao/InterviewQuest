@@ -1,0 +1,34 @@
+#include <iostream>
+#include <cstring>
+
+using namespace std;
+#define CNT 256
+void replace(char* a, char *b)
+{
+    int m = strlen(a);
+    int n = strlen(b);
+    int i,j,k;
+    i=j=k=0;
+    
+    int msk[CNT] = {0};
+    for(i = 0;i<n;i++)
+    {
+        msk[b[i]] = 1;
+    }
+    for(i = 0;i<m;i++)
+    {
+        if(msk[a[i]] == 0)
+            a[k++] = a[i];
+    }
+    a[k] = '\0';
+    cout<<a<<endl;
+    
+}
+
+int main()
+{
+   char a[] = "country music";
+   char b[] = "uy";
+   replace(a,b);
+}
+
