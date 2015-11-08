@@ -1,0 +1,86 @@
+#include <iostream>
+#include <string>
+#include<bits/stdc++.h>
+#include <unordered_map>
+
+using namespace std;
+
+struct Node
+{
+    int data;
+    Node* link;
+};
+
+//Node* head;
+
+Node* insert(Node* head,int num)
+{
+    Node* temp = new Node();
+    temp->data = num;
+    temp->link = NULL;
+    
+    if(head == NULL)
+    {
+        head = temp;
+    }
+    else
+    {
+        Node* curr = head;
+        while(curr->link != NULL)
+        {
+            curr = curr->link;
+        }
+        curr->link = temp;
+        return head;
+    }
+}
+
+void print(Node* root)
+{
+    Node* temp = root;
+    while(temp != NULL)
+    {
+        cout<<temp->data<<"->";
+        temp = temp->link;
+    }
+    cout<<endl;
+}
+
+Node* removeDup(Node* head)
+{
+    Node* curr = head;
+    Node* prev = NULL;
+    Node* temp;
+    unordered_map<int, bool> m;
+    
+    while(curr != NULL)
+    {
+        if(m[curr->data])
+        {
+            prev->link = curr->link;
+            temp = curr;
+            curr=curr->link;
+            delete temp;
+            continue;
+        }
+        m[curr->data] = true;
+        prev = curr;
+        curr = curr->link;
+    }
+    return head;
+    }
+
+int main()
+{
+  Node* head = NULL;
+  head = insert(head,1);
+  head = insert(head,1);
+  head = insert(head,3);
+  head = insert(head,2);
+    head = insert(head,3);
+      head = insert(head,2);
+  print(head);
+  
+  head = removeDup(head);
+   print(head);
+}
